@@ -1,0 +1,9 @@
+{
+  "accounts": [
+    {
+      "accountName":  "test",
+      "cardNumber": 0000000000000000,
+      "pin": 3333
+    }
+  ]
+}

@@ -54,8 +54,8 @@ namespace ATM.Entities
                 _BankPin = value;
             }
         }
-        private float _Balance;
-        public float Balance
+        private decimal _Balance;
+        public decimal Balance
         {
             get { return _Balance; }
             set
