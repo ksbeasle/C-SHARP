@@ -1,5 +1,6 @@
 ﻿using ATM.Entities;
 using System;
+using System.Data.SqlClient;
 using System.Threading;
 
 
@@ -69,11 +70,39 @@ namespace ATM;
 
     public static bool Login()
     {
+        Console.WriteLine("Enter card number.");
+        string cardNumber = Console.ReadLine();
+
         return true;
     }
 
     static void ImitateLoading()
     {
+        string connectionString;
+        SqlConnection cnn;
+        connectionString = @"";
+        SqlCommand command;
+        SqlDataReader dataReader;
+        String sql, Output = "";
+
+        
+        cnn = new SqlConnection(connectionString);
+        cnn.Open();
+        sql = "SELECT * FROM ATM.dbo.Test";
+        command = new SqlCommand(sql, cnn);
+        dataReader = command.ExecuteReader();
+        if (dataReader.HasRows)
+        {
+            while (dataReader.Read())
+            {
+                Console.WriteLine("{0}", dataReader.GetValue(0));
+            }
+        } else
+        {
+            Console.WriteLine("No Rows :(");
+        }
+        cnn.Close();
+        Console.WriteLine(cnn);
         var counter = 0;
         for (int i = 0; i < 50; i++)
         {
@@ -88,5 +117,6 @@ namespace ATM;
             counter++;
             Thread.Sleep(100);
         }
+        
     }
 }
