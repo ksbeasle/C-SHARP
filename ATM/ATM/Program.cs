@@ -1,5 +1,7 @@
 ﻿using ATM.Entities;
+using Microsoft.Extensions.Configuration;
 using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Threading;
 
@@ -9,6 +11,15 @@ namespace ATM;
 {
     static void Main(string[] args)
     {
+        // Start DB first
+        var success = DB.DBConnection.InitDB();
+        if(success)
+        {
+            Console.WriteLine("Connected...");
+        } else
+        {
+            Console.WriteLine("Error.");
+        }
         string title = @"
           _____             _____                    _____          
          /\    \           /\    \                  /\    \         
@@ -83,20 +94,33 @@ namespace ATM;
         connectionString = @"";
         SqlCommand command;
         SqlDataReader dataReader;
+        DataTableReader r;
         String sql, Output = "";
 
         
         cnn = new SqlConnection(connectionString);
         cnn.Open();
-        sql = "SELECT * FROM ATM.dbo.Test";
+        Console.WriteLine(cnn.State);
+        sql = "SELECT * FROM ATM.dbo.Test1";
         command = new SqlCommand(sql, cnn);
         dataReader = command.ExecuteReader();
         if (dataReader.HasRows)
         {
-            while (dataReader.Read())
+            foreach(DataRow row in dataReader.GetSchemaTable().Rows)
             {
-                Console.WriteLine("{0}", dataReader.GetValue(0));
+                Console.WriteLine("ROW", row);
             }
+          /*  while (dataReader.Read())
+            {
+                Object[] values = new Object[dataReader.FieldCount];
+                int numOfColumns = dataReader.GetValues(values);
+                Console.WriteLine("Retrieved {0} columns", numOfColumns);
+                Console.WriteLine("VALLLL {0}", values);
+                foreach(Object obj in values)
+                {
+                    Console.WriteLine("OBJECT BRO {0}", obj);
+                }
+            }*/
         } else
         {
             Console.WriteLine("No Rows :(");
