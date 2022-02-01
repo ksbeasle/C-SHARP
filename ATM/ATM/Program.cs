@@ -20,6 +20,8 @@ namespace ATM;
         {
             Console.WriteLine("Error.");
         }
+
+        DB.DBConnection.Query("SELECT * FROM ATM.dbo.Test1");
         string title = @"
           _____             _____                    _____          
          /\    \           /\    \                  /\    \         
@@ -57,16 +59,12 @@ namespace ATM;
         switch (userSelection.ToLower())
         {
             case "login":
+            case "1":
                 Login();
                 break;
-            case "1":
-                Console.WriteLine("1");
-                break;
             case "signup":
-                Console.WriteLine("signup");
-                break;
             case "2":
-                Console.WriteLine("2");
+                Console.WriteLine("signup");
                 break;
             default:
                 Console.WriteLine("An error occurred please try again. Shutting down...");
@@ -89,27 +87,6 @@ namespace ATM;
 
     static void ImitateLoading()
     {
-        string connectionString;
-        SqlConnection cnn;
-        connectionString = @"";
-        SqlCommand command;
-        SqlDataReader dataReader;
-        DataTableReader r;
-        String sql, Output = "";
-
-        
-        cnn = new SqlConnection(connectionString);
-        cnn.Open();
-        Console.WriteLine(cnn.State);
-        sql = "SELECT * FROM ATM.dbo.Test1";
-        command = new SqlCommand(sql, cnn);
-        dataReader = command.ExecuteReader();
-        if (dataReader.HasRows)
-        {
-            foreach(DataRow row in dataReader.GetSchemaTable().Rows)
-            {
-                Console.WriteLine("ROW", row);
-            }
           /*  while (dataReader.Read())
             {
                 Object[] values = new Object[dataReader.FieldCount];
@@ -121,12 +98,6 @@ namespace ATM;
                     Console.WriteLine("OBJECT BRO {0}", obj);
                 }
             }*/
-        } else
-        {
-            Console.WriteLine("No Rows :(");
-        }
-        cnn.Close();
-        Console.WriteLine(cnn);
         var counter = 0;
         for (int i = 0; i < 50; i++)
         {

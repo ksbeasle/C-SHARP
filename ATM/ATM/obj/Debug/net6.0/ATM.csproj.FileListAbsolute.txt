@@ -19,7 +19,6 @@ E:\Desktop\C#\C-SHARP\ATM\ATM\bin\Debug\net6.0\runtimes\win-x86\native\sni.dll
 E:\Desktop\C#\C-SHARP\ATM\ATM\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 E:\Desktop\C#\C-SHARP\ATM\ATM\bin\Debug\net6.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 E:\Desktop\C#\C-SHARP\ATM\ATM\obj\Debug\net6.0\ATM.csproj.CopyComplete
-E:\Desktop\C#\C-SHARP\ATM\ATM\obj\Debug\net6.0\ATM.csproj.AssemblyReference.cache
 E:\Desktop\C#\C-SHARP\ATM\ATM\bin\Debug\net6.0\appsettings.json
 E:\Desktop\C#\C-SHARP\ATM\ATM\bin\Debug\net6.0\Microsoft.Extensions.Configuration.dll
 E:\Desktop\C#\C-SHARP\ATM\ATM\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
@@ -31,3 +30,4 @@ E:\Desktop\C#\C-SHARP\ATM\ATM\bin\Debug\net6.0\Microsoft.Extensions.FileProvider
 E:\Desktop\C#\C-SHARP\ATM\ATM\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Physical.dll
 E:\Desktop\C#\C-SHARP\ATM\ATM\bin\Debug\net6.0\Microsoft.Extensions.FileSystemGlobbing.dll
 E:\Desktop\C#\C-SHARP\ATM\ATM\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+E:\Desktop\C#\C-SHARP\ATM\ATM\obj\Debug\net6.0\ATM.csproj.AssemblyReference.cache
