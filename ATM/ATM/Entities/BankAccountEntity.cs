@@ -1,14 +1,17 @@
 ﻿using ATM.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using System.Text.RegularExpressions;
 namespace ATM.Entities
 {
     public class BankAccountEntity : IAccountActions
     {
+        public BankAccountEntity(Guid accountNumber, int bankPin)
+        {
+            AccountNumber = AccountNumber;
+            BankPin = bankPin;
+            // TODO: CAll setters?
+        }
+
+        private const decimal MAX_TRANSACTION_LIMIT = 5000;
         private Guid _AccountNumber;
         public Guid AccountNumber
         {
@@ -18,31 +21,13 @@ namespace ATM.Entities
                 _AccountNumber = value;
             }
         }
-        private BaseCardEntity[]? _Cards;
-        public BaseCardEntity[]? Cards
+        private List<BaseCardEntity>? _Cards;
+        public List<BaseCardEntity>? Cards
         {
             get { return _Cards; }
             set
             {
                 _Cards = value;
-            }
-        }
-        private float _MaxTransactionLimit;
-        public float MaxTransactionLimit
-        {
-            get { return _MaxTransactionLimit; }
-            set
-            {
-                _MaxTransactionLimit = value;
-            }
-        }
-        private float _MaxCashWithdrawalLimit;
-        public float MaxCashWithdrawalLimit
-        {
-            get { return _MaxCashWithdrawalLimit; }
-            set
-            {
-                _MaxCashWithdrawalLimit = value;
             }
         }
         private int _BankPin;
@@ -51,10 +36,21 @@ namespace ATM.Entities
             get { return _BankPin; }
             set
             {
-                _BankPin = value;
+                try
+                {
+                    Regex rx = new Regex(@"^[\d]{4}$"); // 4 digit pin only
+                    if (rx.IsMatch(value.ToString())) // -- hopefully this works even as a string???
+                    {
+                        _BankPin = value;
+                    }
+                } catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
         }
         private decimal _Balance;
+
         public decimal Balance
         {
             get { return _Balance; }
