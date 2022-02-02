@@ -42,12 +42,9 @@ namespace ATM.DB
             {
                 SqlCommand command = new SqlCommand(stmt, _connection);
                 var results = command.ExecuteReader();
-                if (results.HasRows)
+                while (results.Read())
                 {
-                    foreach (DataRow row in results.GetSchemaTable().Rows)
-                    {
-                        Console.WriteLine("ROW", row);
-                    }
+                    Console.WriteLine(results.GetInt32(0));
                 }
             } catch (Exception e)
             {
