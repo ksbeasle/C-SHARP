@@ -4,12 +4,6 @@ namespace ATM.Entities
 {
     public class BankAccountEntity : IAccountActions
     {
-        public BankAccountEntity(Guid accountNumber, int bankPin)
-        {
-            AccountNumber = AccountNumber;
-            BankPin = bankPin;
-            // TODO: CAll setters?
-        }
 
         private const decimal MAX_TRANSACTION_LIMIT = 5000;
         private Guid _AccountNumber;
@@ -30,23 +24,13 @@ namespace ATM.Entities
                 _Cards = value;
             }
         }
-        private int _BankPin;
-        public int BankPin
+        private string _BankPin;
+        public string BankPin
         {
             get { return _BankPin; }
             set
             {
-                try
-                {
-                    Regex rx = new Regex(@"^[\d]{4}$"); // 4 digit pin only
-                    if (rx.IsMatch(value.ToString())) // -- hopefully this works even as a string???
-                    {
-                        _BankPin = value;
-                    }
-                } catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
+                _BankPin = value;
             }
         }
         private decimal _Balance;
@@ -60,7 +44,59 @@ namespace ATM.Entities
             }
         }
 
-        public float Withdrawal()
+        private string _Username;
+        public string Username
+        {
+            get { return _Username; }
+            set
+            {
+                _Username = value;
+            }
+        }
+
+        // *** VALIDATIONS ***
+        private bool isValidBankPin(string pin)
+        {
+            Regex rx = new Regex(@"^[\d]{4}$"); // 4 digit pin only
+            if (rx.IsMatch(pin)) // -- hopefully this works even as a string???
+            {
+                return true;
+            }
+            return false;
+        }
+
+        // *** INTERFACE METHODS ***
+        public float WithdrawFunds()
+        {
+            throw new NotImplementedException();
+        }
+
+        decimal IAccountActions.WithdrawFunds()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DepositFunds()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool GetNewCard()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<BaseCardEntity> ShowBankCards()
+        {
+            throw new NotImplementedException();
+        }
+
+        public decimal GetBalance()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Guid GetAccountNumber()
         {
             throw new NotImplementedException();
         }

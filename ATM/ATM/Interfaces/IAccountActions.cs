@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ATM.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,12 @@ namespace ATM.Interfaces
 {
     public interface IAccountActions
     {
-        public float Withdrawal();
+        public decimal WithdrawFunds();
+        public bool DepositFunds();
+        public bool GetNewCard();
+        public List<BaseCardEntity> ShowBankCards();
+        public decimal GetBalance();
+        public Guid GetAccountNumber();
+
     }
 }

@@ -47,6 +47,10 @@ namespace ATM;
                                                                     
 ";
         Console.WriteLine(title);
+
+        Guid guid = Guid.NewGuid();
+        Console.WriteLine($"BLAH {guid}");
+
         Console.WriteLine("Welcome to the ATM!");
         ImitateLoading();
         Console.WriteLine("What would you like to do?");
@@ -64,7 +68,7 @@ namespace ATM;
                 break;
             case "signup":
             case "2":
-                Console.WriteLine("signup");
+                Signup();
                 break;
             default:
                 Console.WriteLine("An error occurred please try again. Shutting down...");
@@ -79,8 +83,15 @@ namespace ATM;
 
     public static bool Login()
     {
-        Console.WriteLine("Enter card number.");
+        Console.WriteLine("Enter Username.");
         string cardNumber = Console.ReadLine();
+        Console.WriteLine("Enter 4 digit pin.");
+        string pin = Console.ReadLine();
+        return true;
+    }
+
+    public static bool Signup()
+    {
 
         return true;
     }
