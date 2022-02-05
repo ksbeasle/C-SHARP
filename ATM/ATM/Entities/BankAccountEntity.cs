@@ -1,5 +1,5 @@
 ﻿using ATM.Interfaces;
-using System.Text.RegularExpressions;
+using System.Text;
 namespace ATM.Entities
 {
     public class BankAccountEntity : IAccountActions
@@ -15,8 +15,8 @@ namespace ATM.Entities
                 _AccountNumber = value;
             }
         }
-        private List<BaseCardEntity>? _Cards;
-        public List<BaseCardEntity>? Cards
+        private List<ICard>? _Cards;
+        public List<ICard>? Cards
         {
             get { return _Cards; }
             set
@@ -52,17 +52,6 @@ namespace ATM.Entities
             {
                 _Username = value;
             }
-        }
-
-        // *** VALIDATIONS ***
-        private bool isValidBankPin(string pin)
-        {
-            Regex rx = new Regex(@"^[\d]{4}$"); // 4 digit pin only
-            if (rx.IsMatch(pin)) // -- hopefully this works even as a string???
-            {
-                return true;
-            }
-            return false;
         }
 
         // *** INTERFACE METHODS ***

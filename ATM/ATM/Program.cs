@@ -1,4 +1,5 @@
 ﻿using ATM.Entities;
+using ATM.utils;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Data;
@@ -92,7 +93,31 @@ namespace ATM;
 
     public static bool Signup()
     {
+        Console.WriteLine("Lets sign you up!");
+        Console.WriteLine("Enter a username with a mix of numbers and letters and is 15 characters or less.");
+        while (true)
+        {
+            string username = Console.ReadLine();
+            if (Validations.isValidUsername(username))
+            {
+                break;
+            }
+            Console.WriteLine("Invalid username please try again...");
+        }
 
+        Console.WriteLine("Enter a 4 digit pin.");
+        while(true)
+        {
+            string pin = Console.ReadLine();
+            if (Validations.isValidBankPin(pin))
+            {
+                break;
+            }
+            Console.WriteLine("Invalid pin please try again...");
+        }
+
+        Console.WriteLine("Account created.");
+        //Call Login() here
         return true;
     }
 
