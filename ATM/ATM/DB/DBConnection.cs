@@ -36,6 +36,20 @@ namespace ATM.DB
             }      
         }
 
+        public static void CreateAccount(string stmt)
+        {
+            try
+            {
+                SqlCommand command = new SqlCommand(stmt, _connection);
+                var results = command.ExecuteReader();
+                Console.WriteLine(results);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error executing query: {e.Message}");
+            }
+        }
+
         public static void Query(string stmt)
         {
             try

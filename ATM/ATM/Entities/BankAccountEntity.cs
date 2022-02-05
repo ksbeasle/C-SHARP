@@ -4,6 +4,11 @@ namespace ATM.Entities
 {
     public class BankAccountEntity : IAccountActions
     {
+        public BankAccountEntity(string bankPin, string username)
+        {
+            BankPin = bankPin;
+            Username = username;
+        }
 
         private const decimal MAX_TRANSACTION_LIMIT = 5000;
         private Guid _AccountNumber;
@@ -45,6 +50,7 @@ namespace ATM.Entities
         }
 
         private string _Username;
+
         public string Username
         {
             get { return _Username; }

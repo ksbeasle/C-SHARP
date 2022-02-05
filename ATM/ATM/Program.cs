@@ -111,6 +111,7 @@ namespace ATM;
             string pin = Console.ReadLine();
             if (Validations.isValidBankPin(pin))
             {
+                Validations.HashBankPin(pin);
                 break;
             }
             Console.WriteLine("Invalid pin please try again...");

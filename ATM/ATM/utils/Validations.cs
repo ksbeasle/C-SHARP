@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace ATM.utils
 {
@@ -30,5 +32,19 @@ namespace ATM.utils
             }
             return false;
         }
+
+        public static void HashBankPin(string pin)
+        {
+            // TODO add salt?
+            HashAlgorithm sha = SHA256.Create();
+            byte[] textBytes = System.Text.Encoding.UTF8.GetBytes(pin);
+            byte[] hashBytes = sha.ComputeHash(textBytes);
+
+            string hash = BitConverter
+            .ToString(hashBytes)
+            .Replace("-", String.Empty); // maybe leave dashes
+            Console.WriteLine(hash);
+        }
+
     }
 }
