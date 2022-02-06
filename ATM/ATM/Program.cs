@@ -13,16 +13,16 @@ namespace ATM;
     static void Main(string[] args)
     {
         // Start DB first
-        var success = DB.DBConnection.InitDB();
+        var success = DB.DB.InitDB();
         if(success)
         {
             Console.WriteLine("Connected...");
         } else
         {
             Console.WriteLine("Error.");
+            System.Environment.Exit(0);
         }
 
-        DB.DBConnection.Query("SELECT * FROM ATM.dbo.Test1");
         string title = @"
           _____             _____                    _____          
          /\    \           /\    \                  /\    \         
@@ -48,9 +48,6 @@ namespace ATM;
                                                                     
 ";
         Console.WriteLine(title);
-
-        Guid guid = Guid.NewGuid();
-        Console.WriteLine($"BLAH {guid}");
 
         Console.WriteLine("Welcome to the ATM!");
         ImitateLoading();
@@ -93,11 +90,14 @@ namespace ATM;
 
     public static bool Signup()
     {
+        string username;
+        string encryptedPin;
+        decimal balance = 0.0m;
         Console.WriteLine("Lets sign you up!");
         Console.WriteLine("Enter a username with a mix of numbers and letters and is 15 characters or less.");
         while (true)
         {
-            string username = Console.ReadLine();
+            username = Console.ReadLine();
             if (Validations.isValidUsername(username))
             {
                 break;
@@ -106,18 +106,22 @@ namespace ATM;
         }
 
         Console.WriteLine("Enter a 4 digit pin.");
-        while(true)
+        while (true)
         {
             string pin = Console.ReadLine();
             if (Validations.isValidBankPin(pin))
             {
-                Validations.HashBankPin(pin);
+                encryptedPin = Validations.EncryptBankPin(pin);
                 break;
             }
             Console.WriteLine("Invalid pin please try again...");
         }
 
-        Console.WriteLine("Account created.");
+        Console.WriteLine($"Account created. {username} ${encryptedPin}");
+        Guid accountNumber = Guid.NewGuid();
+        DB.DB.CreateAccount(accountNumber, username, encryptedPin);
+        
+
         //Call Login() here
         return true;
     }
