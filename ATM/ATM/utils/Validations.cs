@@ -33,17 +33,17 @@ namespace ATM.utils
             return false;
         }
 
-        public static void HashBankPin(string pin)
+        public static string EncryptBankPin(string pin)
         {
-            // TODO add salt?
             HashAlgorithm sha = SHA256.Create();
             byte[] textBytes = System.Text.Encoding.UTF8.GetBytes(pin);
             byte[] hashBytes = sha.ComputeHash(textBytes);
 
             string hash = BitConverter
             .ToString(hashBytes)
-            .Replace("-", String.Empty); // maybe leave dashes
-            Console.WriteLine(hash);
+            .Replace("-", String.Empty);
+
+            return hash;
         }
 
     }

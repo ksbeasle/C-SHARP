@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace ATM.DB
 {
-    public class DBConnection
+    public class DB
     {
         private static SqlConnection? _connection;
-        
+
         public static bool InitDB()
         {
 
@@ -28,25 +23,36 @@ namespace ATM.DB
                 _connection.Open();
                 return true;
 
-                
-            } catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return false;
-            }      
-        }
 
-        public static void CreateAccount(string stmt)
-        {
-            try
-            {
-                SqlCommand command = new SqlCommand(stmt, _connection);
-                var results = command.ExecuteReader();
-                Console.WriteLine(results);
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Error executing query: {e.Message}");
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
+
+        public static void CreateAccount(Guid accountNumber, string username, string pin)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            decimal balance = 0.0m;
+            try
+            {
+                SqlCommand command = new SqlCommand("INSERT INTO dbo.BankAccounts (accountNumber, username, bankPin, balance) " + "VALUES(@accountNumber, @username, @bankPin, @balance)", _connection);
+
+                // Add the parameters for the InsertCommand.
+                command.Parameters.AddWithValue("@accountNumber", 1);
+                command.Parameters.AddWithValue("@username", username);
+                command.Parameters.AddWithValue("@bankPin", pin);
+                command.Parameters.AddWithValue("@balance", balance);
+
+                var res = command.ExecuteNonQuery();
+                Console.WriteLine(res);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error executing query: {e}");
             }
         }
 
@@ -60,7 +66,8 @@ namespace ATM.DB
                 {
                     Console.WriteLine(results.GetInt32(0));
                 }
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 Console.WriteLine($"Error executing query: {e.Message}");
             }
