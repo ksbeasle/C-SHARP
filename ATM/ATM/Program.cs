@@ -19,8 +19,7 @@ namespace ATM;
             Console.WriteLine("Connected...");
         } else
         {
-            Console.WriteLine("Error.");
-            System.Environment.Exit(0);
+            SystemFailure();
         }
 
         string title = @"
@@ -69,9 +68,7 @@ namespace ATM;
                 Signup();
                 break;
             default:
-                Console.WriteLine("An error occurred please try again. Shutting down...");
-                Thread.Sleep(5000);
-                System.Environment.Exit(0);
+                SystemFailure();
                 break;
         }
 
@@ -116,10 +113,13 @@ namespace ATM;
             }
             Console.WriteLine("Invalid pin please try again...");
         }
-
-        Console.WriteLine($"Account created. {username} ${encryptedPin}");
         Guid accountNumber = Guid.NewGuid();
-        DB.DB.CreateAccount(accountNumber, username, encryptedPin);
+        int result = DB.DB.CreateAccount(accountNumber, username, encryptedPin);
+
+        if(result != 1)
+        {
+            SystemFailure();
+        }
         
 
         //Call Login() here
@@ -128,17 +128,6 @@ namespace ATM;
 
     static void ImitateLoading()
     {
-          /*  while (dataReader.Read())
-            {
-                Object[] values = new Object[dataReader.FieldCount];
-                int numOfColumns = dataReader.GetValues(values);
-                Console.WriteLine("Retrieved {0} columns", numOfColumns);
-                Console.WriteLine("VALLLL {0}", values);
-                foreach(Object obj in values)
-                {
-                    Console.WriteLine("OBJECT BRO {0}", obj);
-                }
-            }*/
         var counter = 0;
         for (int i = 0; i < 50; i++)
         {
@@ -154,5 +143,12 @@ namespace ATM;
             Thread.Sleep(100);
         }
         
+    }
+
+    static void SystemFailure()
+    {
+        Console.WriteLine("An error occurred please try again. Shutting down...");
+        Thread.Sleep(5000);
+        System.Environment.Exit(0);
     }
 }
