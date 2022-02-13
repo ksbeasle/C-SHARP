@@ -36,39 +36,77 @@ namespace ATM.DB
 
         public static int CreateAccount(Guid accountNumber, string username, string pin)
         {
-            decimal balance = 0.0m;
+            
             try
             {
-                // TODO finish transaction for both tables
                 SqlTransaction transaction;
+                SqlCommand cardCmd = _connection.CreateCommand();
+                SqlCommand bankAccountCmd = _connection.CreateCommand();
                 transaction = _connection.BeginTransaction("NewBankAccountTransaction");
 
-                SqlCommand bankaccountInsert = new SqlCommand("INSERT INTO dbo.BankAccounts (accountNumber, username, pin, balance) " + "VALUES(@accountNumber, @username, @pin, @balance)", _connection);
+                bankAccountCmd.Connection = _connection;
+                bankAccountCmd.Transaction = transaction;
 
-                // Add the parameters for the InsertCommand.
-                bankaccountInsert.Parameters.AddWithValue("@accountNumber", accountNumber);
-                bankaccountInsert.Parameters.AddWithValue("@username", username);
-                bankaccountInsert.Parameters.AddWithValue("@pin", pin);
-                bankaccountInsert.Parameters.AddWithValue("@balance", balance);
+                cardCmd.Connection = _connection;
+                cardCmd.Transaction = transaction;
 
-                var bankAccountRes = bankaccountInsert.ExecuteNonQuery();
-
-                int iter = 0;
-                StringBuilder sb = new StringBuilder("");
-                do
+                try
                 {
-                    int randomNumber = new Random().Next(1000, 9999);
-                    if(iter != 3)
+                    decimal balance = 0.0m;
+
+                    bankAccountCmd.CommandText = "INSERT INTO dbo.BankAccounts (accountNumber, username, pin, balance) " + "VALUES(@accountNumber, @username, @pin, @balance)";
+                    bankAccountCmd.Parameters.AddWithValue("@accountNumber", accountNumber);
+                    bankAccountCmd.Parameters.AddWithValue("@username", username);
+                    bankAccountCmd.Parameters.AddWithValue("@pin", pin);
+                    bankAccountCmd.Parameters.AddWithValue("@balance", balance);
+                    bankAccountCmd.ExecuteNonQuery();
+
+                    int iter = 0;
+                    StringBuilder cardNumber = new StringBuilder("");
+                    do
                     {
-                        sb.Append(randomNumber + "-");
-                    }else
+                        int randomNumber = new Random().Next(1000, 9999);
+                        if (iter != 3)
+                        {
+                            cardNumber.Append(randomNumber + "-");
+                        }
+                        else
+                        {
+                            cardNumber.Append(randomNumber);
+                        }
+                        iter++;
+                    } while (iter != 4);
+
+                    int cvv = new Random().Next(100, 999);
+
+                    cardCmd.CommandText = "INSERT INTO dbo.BankCards (accountNumber, cardNumber, cardHolderName, expiration, cvv, cardType, maxLimit) " + "VALUES(@accountNumber, @cardNumber, @cardHolderName, @expiration, @cvv, @cardType, @maxLimit)";
+                    cardCmd.Parameters.AddWithValue("@accountNumber", accountNumber);
+                    cardCmd.Parameters.AddWithValue("@cardNumber", cardNumber.ToString());
+                    cardCmd.Parameters.AddWithValue("@cardHolderName", username);
+                    cardCmd.Parameters.AddWithValue("@expiration", DateTime.UtcNow.AddYears(7));
+                    cardCmd.Parameters.AddWithValue("@cvv", cvv);
+                    cardCmd.Parameters.AddWithValue("@cardType", "Debit");
+                    cardCmd.Parameters.AddWithValue("@maxLimit", 99999999999999);
+                    cardCmd.ExecuteNonQuery();
+
+                    transaction.Commit();
+                    Console.WriteLine("Records written to DB.");
+                } catch (Exception ex)
+                {
+                    Console.WriteLine("CreateAccount() Exception during transaction. {0}", ex.Message);
+                    Console.WriteLine("Exception type: {0}", ex.GetType());
+                    Console.WriteLine("Attempting rollback");
+
+                    try
                     {
-                        sb.Append(randomNumber);
+                        transaction.Rollback();
+                    } catch (Exception rollbackException)
+                    {
+                        Console.WriteLine("Rollback exception failed: {0}", rollbackException.Message);
+                        Console.WriteLine("Rollback exception type: {0}", rollbackException.GetType());
                     }
-                    iter++;
-                } while (iter != 4);
+                }             
                 return 1;
-                //SqlCommand newCard = new SqlCommand("INSERT INTO dbo.BankCards () " + "VALUES()");
             }
             catch (Exception e)
             {
