@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "ec911bd7-05d8-4025-93aa-1a26a8ac1e1f": {
+      "ProjectGuid": "ec911bd7-05d8-4025-93aa-1a26a8ac1e1f",
+      "DisplayName": "Sample_HTTP",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

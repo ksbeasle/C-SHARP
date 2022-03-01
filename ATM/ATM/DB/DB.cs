@@ -8,6 +8,16 @@ namespace ATM.DB
 {
     public class DB
     {
+        public class PayLoad
+        {
+           public string Data { get; set; }
+           public int Result { get; set; }
+           public PayLoad(string data, int result)
+            {
+                Data = data;
+                Result = result;
+            }
+        }
         private static SqlConnection? _connection;
 
         public static bool InitDB()
@@ -34,7 +44,7 @@ namespace ATM.DB
             }
         }
 
-        public static int CreateAccount(Guid accountNumber, string username, string pin)
+        public static PayLoad CreateAccount(Guid accountNumber, string username, string pin)
         {
             
             try
@@ -50,6 +60,7 @@ namespace ATM.DB
                 cardCmd.Connection = _connection;
                 cardCmd.Transaction = transaction;
 
+                StringBuilder cardNumber = new StringBuilder("");
                 try
                 {
                     decimal balance = 0.0m;
@@ -62,7 +73,7 @@ namespace ATM.DB
                     bankAccountCmd.ExecuteNonQuery();
 
                     int iter = 0;
-                    StringBuilder cardNumber = new StringBuilder("");
+                    
                     do
                     {
                         int randomNumber = new Random().Next(1000, 9999);
@@ -106,12 +117,12 @@ namespace ATM.DB
                         Console.WriteLine("Rollback exception type: {0}", rollbackException.GetType());
                     }
                 }             
-                return 1;
+                return new PayLoad(cardNumber.ToString(), 0);
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Error executing query: {e.Message}");
-                return -1;
+                return new PayLoad("", -1);
             }
         }
 
