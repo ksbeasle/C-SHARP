@@ -5,6 +5,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading;
+using ATM.DB;
 
 
 namespace ATM;
@@ -78,6 +79,7 @@ namespace ATM;
 
     public static bool Login()
     {
+        Console.WriteLine($"Login...\n");
         Console.WriteLine("Enter Username.");
         string cardNumber = Console.ReadLine();
         Console.WriteLine("Enter 4 digit pin.");
@@ -85,7 +87,7 @@ namespace ATM;
         return true;
     }
 
-    public static bool Signup()
+    public static void Signup()
     {
         string username;
         string encryptedPin;
@@ -114,16 +116,16 @@ namespace ATM;
             Console.WriteLine("Invalid pin please try again...");
         }
         Guid accountNumber = Guid.NewGuid();
-        int result = DB.DB.CreateAccount(accountNumber, username, encryptedPin);
+        DB.DB.PayLoad payload = DB.DB.CreateAccount(accountNumber, username, encryptedPin);
+        
+        Console.WriteLine("Here's your card number for logging in...\n");
+        Console.WriteLine($"{payload.Data}");
 
-        if(result != 1)
+        if(payload.Result != 0)
         {
             SystemFailure();
         }
-        
-
-        //Call Login() here
-        return true;
+        Login();
     }
 
     static void ImitateLoading()
