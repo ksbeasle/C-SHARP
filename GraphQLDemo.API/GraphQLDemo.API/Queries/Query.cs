@@ -3,7 +3,7 @@ using GraphQLDemo.API.Types;
 
 namespace GraphQLDemo.API.Queries
 {
-    public class Query
+    public partial class Query
     {
         // Since we technically have no datasource we are going to mock data with the "Bogus" package
         private readonly Faker<InstructorType> _instructorFaker;
@@ -24,8 +24,8 @@ namespace GraphQLDemo.API.Queries
             _courseFaker = new Faker<CourseType>()
                 .RuleFor(r => r.Id, f => Guid.NewGuid())
                 .RuleFor(r => r.Name, f => f.Name.FirstName())
-                .RuleFor(r => r.subject, f => f.PickRandom<CourseType.Subject>())
-                .RuleFor(r => r.instructor, f => _instructorFaker.Generate())
+                .RuleFor(r => r.Sub, f => f.PickRandom<CourseType.Subject>())
+                .RuleFor(r => r.Instructor, f => _instructorFaker.Generate())
                 .RuleFor(r => r.Students, f => _studentFaker.Generate(3));
         }
         public IEnumerable<CourseType> GetCourses()
