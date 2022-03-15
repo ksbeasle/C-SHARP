@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "3adcbbf5-84c9-49dc-a35e-4bc6413284bc": {
+      "ProjectGuid": "3adcbbf5-84c9-49dc-a35e-4bc6413284bc",
+      "DisplayName": "GraphQLDemo.API",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

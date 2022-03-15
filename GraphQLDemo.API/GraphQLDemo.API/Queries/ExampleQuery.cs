@@ -2,7 +2,7 @@
 
 namespace GraphQLDemo.API.Queries
 {
-    public class ExampleQuery
+    public partial class ExampleQuery : Query
     {
         public ExampleType GetExample() =>
          new ExampleType

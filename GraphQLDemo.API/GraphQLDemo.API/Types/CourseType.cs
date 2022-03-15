@@ -10,8 +10,8 @@
         }
         public Guid Id { get; set; }
         public string? Name { get; set; }
-        public Subject subject { get; set; }
-        public InstructorType? instructor { get; set; }
+        public Subject Sub { get; set; }
+        public InstructorType? Instructor { get; set; }
         public IEnumerable<StudentType>? Students { get; set; }
 
 
