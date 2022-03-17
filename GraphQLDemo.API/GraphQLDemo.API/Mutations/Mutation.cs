@@ -1,5 +1,7 @@
 ﻿
+using GraphQLDemo.API.Subscriptions;
 using GraphQLDemo.API.Types;
+using HotChocolate.Subscriptions;
 using static GraphQLDemo.API.Types.CourseType;
 
 namespace GraphQLDemo.API.Mutations
@@ -12,20 +14,21 @@ namespace GraphQLDemo.API.Mutations
             _courses = new List<CourseResult>();
         }
             
-        public CourseResult createCourse(CourseInputType inputType)
+        public async Task<CourseResult> createCourse(CourseInputType inputType, [Service] ITopicEventSender topicEventSender)
         {
-            CourseResult courseResult = new CourseResult()
+            CourseResult course = new CourseResult()
             {
                 Id =  Guid.NewGuid(),
                 Name = inputType.Name,
                 Sub = inputType.sub,
                 instructorId = inputType.instructorId
             };
-            _courses.Add(courseResult);
-            return courseResult;
+            _courses.Add(course);
+            await topicEventSender.SendAsync(nameof(Subscription.CourseCreated), course);
+            return course;
         }
 
-        public CourseResult updateCourse(Guid id, CourseInputType inputType)
+        public async Task<CourseResult> updateCourse(Guid id, CourseInputType inputType, [Service] ITopicEventSender topicEventSender)
         {
             CourseResult? course = _courses.FirstOrDefault(c => c.Id == id);
 
@@ -38,6 +41,9 @@ namespace GraphQLDemo.API.Mutations
             course.Name = inputType.Name;
             course.Sub = inputType.sub;
             course.instructorId = inputType.instructorId;
+            // custom topic name
+            string updateCourseTopic = $"{course.Id}_{nameof(Subscription.CourseUpdated)}";
+            await topicEventSender.SendAsync(updateCourseTopic, course);
             return course;
 
         }
