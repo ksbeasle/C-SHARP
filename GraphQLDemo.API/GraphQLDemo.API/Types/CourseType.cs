@@ -1,13 +1,9 @@
-﻿namespace GraphQLDemo.API.Types
+﻿using GraphQLDemo.API.Models;
+
+namespace GraphQLDemo.API.Types
 {
     public class CourseType
     {
-        public enum Subject
-        {
-            Math,
-            Science,
-            History
-        }
         public Guid Id { get; set; }
         public string? Name { get; set; }
         public Subject Sub { get; set; }
