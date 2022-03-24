@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration["ConnectionStrings:default"];
+Console.WriteLine(connectionString);
 
 // Graphql
 builder.Services
@@ -18,6 +19,16 @@ builder.Services
     .AddType<ExampleQuery>();
 
 var app = builder.Build();
+using (IServiceScope scope = app.Services.CreateScope()) 
+{
+    IDbContextFactory<SchoolDbContext> contextFactory = scope.ServiceProvider.GetRequiredService<IDbContextFactory<SchoolDbContext>>();
+
+    using(SchoolDbContext context = contextFactory.CreateDbContext())
+    {
+        context.Database.Migrate();
+    }
+}
+
 app.UseWebSockets(); // subscription
 app.MapGraphQL();
 

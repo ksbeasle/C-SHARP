@@ -1,4 +1,5 @@
-﻿using static GraphQLDemo.API.Types.CourseType;
+﻿using GraphQLDemo.API.Models;
+using static GraphQLDemo.API.Types.CourseType;
 
 namespace GraphQLDemo.API.Mutations
 {

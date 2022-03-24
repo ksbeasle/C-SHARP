@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "fqNZbP78stPcuDlIykcuyAuojPMLC7hekNjXkBANw2f18v4jkLYCkN1ksOEyeJUVG9bxMddjmpKwLRvH10YGYQ==",
+  "dgSpecHash": "8K/anGQcYRZTHTNBgDffc+QJCPFQV4QRujFqvoetfOsXP7py9k7fmFODz1fbnh/tTfC3+rvh/0wvgs4ztPtpMQ==",
   "success": true,
   "projectFilePath": "E:\\Desktop\\C#\\C-SHARP\\GraphQLDemo.API\\GraphQLDemo.API\\GraphQLDemo.API.csproj",
   "expectedPackageFiles": [
@@ -27,11 +27,13 @@
     "C:\\Users\\maste\\.nuget\\packages\\hotchocolate.utilities\\12.7.0\\hotchocolate.utilities.12.7.0.nupkg.sha512",
     "C:\\Users\\maste\\.nuget\\packages\\hotchocolate.utilities.introspection\\12.7.0\\hotchocolate.utilities.introspection.12.7.0.nupkg.sha512",
     "C:\\Users\\maste\\.nuget\\packages\\hotchocolate.validation\\12.7.0\\hotchocolate.validation.12.7.0.nupkg.sha512",
+    "C:\\Users\\maste\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\maste\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.0\\microsoft.bcl.asyncinterfaces.1.1.0.nupkg.sha512",
     "C:\\Users\\maste\\.nuget\\packages\\microsoft.data.sqlite.core\\6.0.3\\microsoft.data.sqlite.core.6.0.3.nupkg.sha512",
     "C:\\Users\\maste\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.3\\microsoft.entityframeworkcore.6.0.3.nupkg.sha512",
     "C:\\Users\\maste\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.3\\microsoft.entityframeworkcore.abstractions.6.0.3.nupkg.sha512",
     "C:\\Users\\maste\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\6.0.3\\microsoft.entityframeworkcore.analyzers.6.0.3.nupkg.sha512",
+    "C:\\Users\\maste\\.nuget\\packages\\microsoft.entityframeworkcore.design\\6.0.3\\microsoft.entityframeworkcore.design.6.0.3.nupkg.sha512",
     "C:\\Users\\maste\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\6.0.3\\microsoft.entityframeworkcore.relational.6.0.3.nupkg.sha512",
     "C:\\Users\\maste\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite\\6.0.3\\microsoft.entityframeworkcore.sqlite.6.0.3.nupkg.sha512",
     "C:\\Users\\maste\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite.core\\6.0.3\\microsoft.entityframeworkcore.sqlite.core.6.0.3.nupkg.sha512",
