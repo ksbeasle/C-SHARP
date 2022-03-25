@@ -1,4 +1,7 @@
 ﻿
+
+using GraphQLDemo.API.DTOs;
+using GraphQLDemo.API.Services.Courses;
 using GraphQLDemo.API.Subscriptions;
 using GraphQLDemo.API.Types;
 using HotChocolate.Subscriptions;
@@ -8,39 +11,54 @@ namespace GraphQLDemo.API.Mutations
 {
     public class Mutation
     {
-        private readonly List<CourseResult> _courses;
-        public Mutation()
+        private readonly CoursesRepository _coursesRepository;
+        public Mutation(CoursesRepository coursesRepository)
         {
-            _courses = new List<CourseResult>();
+            _coursesRepository = coursesRepository;
         }
             
         public async Task<CourseResult> createCourse(CourseInputType inputType, [Service] ITopicEventSender topicEventSender)
         {
-            CourseResult course = new CourseResult()
+            CourseDTO courseDTO = new CourseDTO()
             {
-                Id =  Guid.NewGuid(),
                 Name = inputType.Name,
                 Sub = inputType.sub,
                 instructorId = inputType.instructorId
             };
-            _courses.Add(course);
+
+            courseDTO = await _coursesRepository.Create(courseDTO);
+            CourseResult course = new CourseResult()
+            {
+                Id =  courseDTO.Id,
+                Name = courseDTO.Name,
+                Sub = courseDTO.Sub,
+                instructorId = courseDTO.instructorId
+            };
+
             await topicEventSender.SendAsync(nameof(Subscription.CourseCreated), course);
             return course;
         }
 
         public async Task<CourseResult> updateCourse(Guid id, CourseInputType inputType, [Service] ITopicEventSender topicEventSender)
         {
-            CourseResult? course = _courses.FirstOrDefault(c => c.Id == id);
-
-            if(course == null)
+            CourseDTO courseDTO = new CourseDTO()
             {
-                throw new GraphQLException(new Error("Course not found.", "COURSE_NOT_FOUND")); 
-                //throw new Exception("Course not found.");
-            }
+                Id = id,
+                Name = inputType.Name,
+                Sub = inputType.sub,
+                instructorId = inputType.instructorId
+            };
 
-            course.Name = inputType.Name;
-            course.Sub = inputType.sub;
-            course.instructorId = inputType.instructorId;
+            courseDTO = await _coursesRepository.Update(courseDTO);
+
+            CourseResult course = new CourseResult()
+            {
+                Id = courseDTO.Id,
+                Name = courseDTO.Name,
+                Sub = courseDTO.Sub,
+                instructorId = courseDTO.instructorId
+            };
+
             // custom topic name
             string updateCourseTopic = $"{course.Id}_{nameof(Subscription.CourseUpdated)}";
             await topicEventSender.SendAsync(updateCourseTopic, course);
@@ -48,9 +66,9 @@ namespace GraphQLDemo.API.Mutations
 
         }
 
-        public bool removeCourse(Guid id)
+        public async Task<bool> removeCourse(Guid id)
         {
-            return _courses.RemoveAll(c => c.Id == id) >= 1;
+            return await _coursesRepository.Delete(id);
         }
     }
 }
