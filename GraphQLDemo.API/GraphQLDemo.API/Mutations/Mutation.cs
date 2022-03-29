@@ -68,7 +68,13 @@ namespace GraphQLDemo.API.Mutations
 
         public async Task<bool> removeCourse(Guid id)
         {
-            return await _coursesRepository.Delete(id);
+            try
+            {
+                return await _coursesRepository.Delete(id);
+            } catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }
