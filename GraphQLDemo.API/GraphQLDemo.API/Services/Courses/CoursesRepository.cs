@@ -11,6 +11,30 @@ namespace GraphQLDemo.API.Services.Courses
         {
             _contextFactory = contextFactory;
         }
+
+        public async Task<IEnumerable<CourseDTO>> GetAll()
+        {
+            using (SchoolDbContext context = _contextFactory.CreateDbContext())
+            {
+                return await context.Courses
+                    .Include(c => c.Instructor)
+                    .Include(s => s.Students)
+                    .ToListAsync();
+            }
+        }
+
+        public async Task<CourseDTO> GetById(Guid id)
+        {
+            using (SchoolDbContext context = _contextFactory.CreateDbContext())
+            {
+                return await context.Courses
+                    .Include(c => c.Instructor)
+                    .Include(s => s.Students)
+                    .FirstOrDefaultAsync(c => c.Id == id);
+            }
+        }
+
+
         // Should return domain object and not DTO, this is just an example
         public async Task<CourseDTO> Create(CourseDTO course)
         {
