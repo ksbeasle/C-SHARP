@@ -46,12 +46,7 @@ namespace GraphQLDemo.API.Queries
                 Id = c.Id,
                 Name = c.Name,
                 Sub = c.Sub,
-                Instructor = new InstructorType()
-                {
-                    Id = c.instructorId,
-                    Name = c.Name,
-                    salary = c.Instructor.salary
-                }
+                InstructorId = c.instructorId 
             });
            // return _courseFaker.Generate(5);
         }
@@ -65,12 +60,7 @@ namespace GraphQLDemo.API.Queries
                 Id = courseDTO.Id,
                 Name = courseDTO.Name,
                 Sub = courseDTO.Sub,
-                Instructor = new InstructorType()
-                {
-                    Id = courseDTO.instructorId,
-                    Name = courseDTO.Name,
-                    salary = courseDTO.Instructor.salary
-                }
+                InstructorId = courseDTO.instructorId
             };
             /*
             await Task.Delay(5000);
