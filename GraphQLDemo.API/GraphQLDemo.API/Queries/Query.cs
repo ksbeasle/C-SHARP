@@ -3,6 +3,7 @@ using GraphQLDemo.API.Types;
 using GraphQLDemo.API.Models;
 using GraphQLDemo.API.Services.Courses;
 using GraphQLDemo.API.DTOs;
+using GraphQLDemo.API.Services;
 
 namespace GraphQLDemo.API.Queries
 {
@@ -49,6 +50,21 @@ namespace GraphQLDemo.API.Queries
                 InstructorId = c.instructorId 
             });
            // return _courseFaker.Generate(5);
+        }
+
+        [UseDbContext(typeof(SchoolDbContext))]
+        [UsePaging(IncludeTotalCount = true, DefaultPageSize = 10)]
+        public IQueryable<CourseType> GetPaginatedCourses([ScopedService] SchoolDbContext context)
+        {
+            //USing DB and returning as IQueryable lets us leverage the sql keyword LIMIT to make the query to our DB more performant
+            return context.Courses.Select(c => new CourseType()
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Sub = c.Sub,
+                InstructorId = c.instructorId
+            });
+            // return _courseFaker.Generate(5);
         }
 
         public async Task<CourseType> GetCourseByIdAsync(Guid id)
