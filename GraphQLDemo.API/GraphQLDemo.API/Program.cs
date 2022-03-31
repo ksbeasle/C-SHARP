@@ -13,7 +13,7 @@ Console.WriteLine(connectionString);
 
 // Graphql
 builder.Services
-    .AddPooledDbContextFactory<SchoolDbContext>(o => o.UseSqlite(connectionString))
+    .AddPooledDbContextFactory<SchoolDbContext>(o => o.UseSqlite(connectionString).LogTo(Console.WriteLine))
     .AddScoped<CoursesRepository>()
     .AddScoped<InstructorsRepository>()
     .AddScoped<InstructorDataLoader>()
