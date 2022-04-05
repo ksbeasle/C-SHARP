@@ -4,6 +4,7 @@ using GraphQLDemo.API.Models;
 using GraphQLDemo.API.Services.Courses;
 using GraphQLDemo.API.DTOs;
 using GraphQLDemo.API.Services;
+using GraphQLDemo.API.Filters;
 
 namespace GraphQLDemo.API.Queries
 {
@@ -39,6 +40,7 @@ namespace GraphQLDemo.API.Queries
                 .RuleFor(r => r.Instructor, f => _instructorFaker.Generate())
                 .RuleFor(r => r.Students, f => _studentFaker.Generate(3));
         }*/
+        [UseFiltering]
         public async Task<IEnumerable<CourseType>> GetCourses()
         {
             IEnumerable<CourseDTO> courseDTOs =  await _coursesRepository.GetAll();
@@ -54,6 +56,7 @@ namespace GraphQLDemo.API.Queries
 
         [UseDbContext(typeof(SchoolDbContext))]
         [UsePaging(IncludeTotalCount = true, DefaultPageSize = 10)]
+        [UseFiltering(typeof(CourseFilterType))]
         public IQueryable<CourseType> GetPaginatedCourses([ScopedService] SchoolDbContext context)
         {
             //USing DB and returning as IQueryable lets us leverage the sql keyword LIMIT to make the query to our DB more performant
