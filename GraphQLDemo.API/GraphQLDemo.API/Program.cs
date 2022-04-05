@@ -18,6 +18,7 @@ builder.Services
     .AddScoped<InstructorsRepository>()
     .AddScoped<InstructorDataLoader>()
     .AddGraphQLServer()
+    .AddFiltering()
     .AddQueryType<Query>()
     .AddMutationType<Mutation>()
     .AddSubscriptionType<Subscription>()
