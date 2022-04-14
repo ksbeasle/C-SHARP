@@ -1,0 +1,15 @@
+E:\Desktop\C#\C-SHARP\Design-Patterns\creational\Creational\AbstractFactory\AbstractFactory\bin\Debug\net6.0\AbstractFactory.exe
+E:\Desktop\C#\C-SHARP\Design-Patterns\creational\Creational\AbstractFactory\AbstractFactory\bin\Debug\net6.0\AbstractFactory.deps.json
+E:\Desktop\C#\C-SHARP\Design-Patterns\creational\Creational\AbstractFactory\AbstractFactory\bin\Debug\net6.0\AbstractFactory.runtimeconfig.json
+E:\Desktop\C#\C-SHARP\Design-Patterns\creational\Creational\AbstractFactory\AbstractFactory\bin\Debug\net6.0\AbstractFactory.dll
+E:\Desktop\C#\C-SHARP\Design-Patterns\creational\Creational\AbstractFactory\AbstractFactory\bin\Debug\net6.0\ref\AbstractFactory.dll
+E:\Desktop\C#\C-SHARP\Design-Patterns\creational\Creational\AbstractFactory\AbstractFactory\bin\Debug\net6.0\AbstractFactory.pdb
+E:\Desktop\C#\C-SHARP\Design-Patterns\creational\Creational\AbstractFactory\AbstractFactory\obj\Debug\net6.0\AbstractFactory.csproj.AssemblyReference.cache
+E:\Desktop\C#\C-SHARP\Design-Patterns\creational\Creational\AbstractFactory\AbstractFactory\obj\Debug\net6.0\AbstractFactory.GeneratedMSBuildEditorConfig.editorconfig
+E:\Desktop\C#\C-SHARP\Design-Patterns\creational\Creational\AbstractFactory\AbstractFactory\obj\Debug\net6.0\AbstractFactory.AssemblyInfoInputs.cache
+E:\Desktop\C#\C-SHARP\Design-Patterns\creational\Creational\AbstractFactory\AbstractFactory\obj\Debug\net6.0\AbstractFactory.AssemblyInfo.cs
+E:\Desktop\C#\C-SHARP\Design-Patterns\creational\Creational\AbstractFactory\AbstractFactory\obj\Debug\net6.0\AbstractFactory.csproj.CoreCompileInputs.cache
+E:\Desktop\C#\C-SHARP\Design-Patterns\creational\Creational\AbstractFactory\AbstractFactory\obj\Debug\net6.0\AbstractFactory.dll
+E:\Desktop\C#\C-SHARP\Design-Patterns\creational\Creational\AbstractFactory\AbstractFactory\obj\Debug\net6.0\ref\AbstractFactory.dll
+E:\Desktop\C#\C-SHARP\Design-Patterns\creational\Creational\AbstractFactory\AbstractFactory\obj\Debug\net6.0\AbstractFactory.pdb
+E:\Desktop\C#\C-SHARP\Design-Patterns\creational\Creational\AbstractFactory\AbstractFactory\obj\Debug\net6.0\AbstractFactory.genruntimeconfig.cache

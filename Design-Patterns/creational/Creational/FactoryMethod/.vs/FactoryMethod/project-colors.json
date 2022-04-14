@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "3d46874b-bb8c-495f-b3a0-be30d82da645": {
+      "ProjectGuid": "3d46874b-bb8c-495f-b3a0-be30d82da645",
+      "DisplayName": "FactoryMethod",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
